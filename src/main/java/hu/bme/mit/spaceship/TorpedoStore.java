@@ -8,6 +8,7 @@ import java.util.Random;
 * (Deliberately contains bugs.)
 */
 public class TorpedoStore {
+  // Reuse single instance to reduce memory overhead
   private Random generator = new Random();
 
   // rate of failing to fire torpedos [0.0, 1.0]
@@ -31,6 +32,7 @@ public class TorpedoStore {
 
   public boolean fire(int numberOfTorpedos){
     if(numberOfTorpedos < 1 || numberOfTorpedos > this.torpedoCount){
+      // Fail-fast: actually throw the exception to prevent invalid application state
       throw new IllegalArgumentException("numberOfTorpedos");
     }
 
